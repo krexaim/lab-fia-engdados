@@ -27,9 +27,10 @@ aws_secret_access_key="cursolab"
 MINIO_ENDPOINT = "http://minio:9000"
 MINIO_ACCESS_KEY = "cursolab"
 MINIO_SECRET_KEY = "cursolab"
-KAFKA_BROKER = "kafka-broker:29092"
-KAFKA_TOPIC = "sink-raw"
+# KAFKA_BROKER = "kafka-broker:29092"
+# KAFKA_TOPIC = "sink-raw"
 
+BRONZE_PATH = "s3a://raw/"
 SILVER_PATH = "s3a://trusted/movies/"
 
 
@@ -96,47 +97,8 @@ def push_data_to_silver_layer(file_path):
     spark.stop()
     
 
-
-def consume_data():
-    # Initialize Kafka consumer
-
-    print(f"Start - Consumer")
-
-    consumer = KafkaConsumer(
-        'sink-raw',
-        bootstrap_servers=['kafka-broker:29092'],
-        auto_offset_reset='earliest',
-        enable_auto_commit=True,
-        value_deserializer=lambda x: json.loads(x.decode('utf-8'))
-    )
-    
-    print(f"Start Consumer Config")
-    
-    for message in consumer:
-        event = message.value
-        print(f"Evento recebido: {event['Key']}")
-       
-        # Caminho vindo do evento (com %3D e %2F)
-        raw_key = event["Records"][0]["s3"]["object"]["key"]
-
-         #Decodifica o caminho para remover %3D e %2F
-        decoded_key = urllib.parse.unquote(raw_key)
-        
-          # Caminho do arquivo CSV que chegou na camada Bronze
-        bronze_path = f"s3a://{event['Records'][0]['s3']['bucket']['name']}/{decoded_key}"
-        print(f"bronze_path: {bronze_path}")
-       
-
-        push_data_to_silver_layer(bronze_path)
-
-        # if not check_folder_and_create(bucket="trusted", file_name=file_name):
-        #     push_data_to_silver_layer("bronze", data["Key"])
-        #     break
-        # else:
-        #     print("Folder already exit in silver layer")
-    
 dag = DAG(
-    dag_id = "silver_layer_processing",
+    dag_id = "silver-layer-processing",
     default_args = {
         "owner": "Fia",
         "start_date" : airflow.utils.dates.days_ago(1),
@@ -151,9 +113,10 @@ start = PythonOperator(
     dag=dag
 )
 
-silver_data_consumer = PythonOperator(
-    task_id="silver_data_consumer",
-    python_callable=consume_data,
+move_data_to_silver = PythonOperator(
+    task_id='move-data-to-silver',
+    python_callable=push_data_to_silver_layer,
+    op_args=[BRONZE_PATH],
     dag=dag
 )
 
@@ -163,4 +126,4 @@ end = PythonOperator(
     dag=dag
 )
 
-start >> silver_data_consumer >> end
+start >> move_data_to_silver >> end
