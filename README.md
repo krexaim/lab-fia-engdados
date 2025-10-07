@@ -1,16 +1,16 @@
-# lab-fia-engdados
+# Informação do Laboratório
 https://github.com/Labdata-FIA/Lab-Engenharia-Dados-v2
 
 
-# Subir o container do NIFI
-docker compose up -d nifi minio
+# Subindo o ambiente com Docker
+`docker compose up -d`
 
-## Conexão com o NIFI
-https://localhost:9443/nifi/#/login
-
-Usuário	Senha
-admin	fia@2024@ladata@laboratorio
-
+## Logins
+| Serviço | Usuário | Senha | 
+|---|---|---|
+| [NIFI](https://localhost:9443/nifi/#/login) | admin | fia@2024@ladata@laboratorio |
+| [Airflow](http://localhost:8080/) | airflow | airflow |
+| [MinIO](http://localhost:9001/login) | admin | minioadmin |
 
 ## Configurando GetFile
 Property	Value
