@@ -10,8 +10,8 @@ from delta import configure_spark_with_delta_pip  #Delta Lake
 # CONFIGURAÇÕES GERAIS
 # --------------------------------------------------------------------
 MINIO_ENDPOINT = "http://minio:9000"
-MINIO_ACCESS_KEY = "cursolab"
-MINIO_SECRET_KEY = "cursolab"
+MINIO_ACCESS_KEY = "admin"
+MINIO_SECRET_KEY = "minioadmin"
 
 # Trusted/Silver e Refined/Gold em Delta Lake
 TRUSTED_PATH = "s3a://trusted/movies/"     # Delta
