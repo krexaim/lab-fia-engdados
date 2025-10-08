@@ -18,15 +18,15 @@ from delta import configure_spark_with_delta_pip
 
 import urllib.parse
 
-aws_access_key_id="cursolab"
-aws_secret_access_key="cursolab"
+aws_access_key_id="admin"
+aws_secret_access_key="minioadmin"
 
 # --------------------------------------------------------------------
 # CONFIGURAÇÕES GERAIS
 # --------------------------------------------------------------------
 MINIO_ENDPOINT = "http://minio:9000"
-MINIO_ACCESS_KEY = "cursolab"
-MINIO_SECRET_KEY = "cursolab"
+MINIO_ACCESS_KEY = "admin"
+MINIO_SECRET_KEY = "minioadmin"
 KAFKA_BROKER = "kafka-broker:29092"
 KAFKA_TOPIC = "sink-raw"
 
