@@ -213,6 +213,17 @@ services:
       start_period: 5s
     restart: always
 
+   metabase:
+    image: metabase/metabase:latest
+    container_name: metabase
+    hostname: metabase
+    depends_on:
+        - postgres
+    ports:
+      - 3000:3000
+    networks:
+      - rede_fia
+
    airflow-webserver:
     <<: *airflow-common
     command: webserver
