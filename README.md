@@ -5,12 +5,24 @@ https://github.com/Labdata-FIA/Lab-Engenharia-Dados-v2
 # Subindo o ambiente com Docker
 `docker compose up -d`
 
+
+
 ## Logins
 | Serviço | Usuário | Senha | 
 |---|---|---|
 | [NIFI](https://localhost:9443/nifi/#/login) | admin | fia@2024@ladata@laboratorio |
 | [Airflow](http://localhost:8080/) | airflow | airflow |
 | [MinIO](http://localhost:9001/login) | admin | minioadmin |
+
+# Importando o template do NIFI
+1. Criar process group e fazer upload do template em formato json
+2. Entrar no process group - Ingest File
+3. Configurar o ```controller settings``` para conectar com o MinIO com as credenciais:
+    | Property | Value |
+    |---|---|
+    | Access key ID | admin |
+    | Secret Access key | minioadmin |
+4. Habilitar o controller -> enable
 
 ## Configurando GetFile
 | Property | Value |
@@ -37,4 +49,8 @@ https://github.com/Labdata-FIA/Lab-Engenharia-Dados-v2
 | Input Directory | #{DirectoryCSV} |
 
 
-## configurar Controller Services
+## Rodando as DAGs no Airflow
+
+## Inserindo os dados transformados no postgres
+
+## Conectando o postgres com o metabase para visualizar os dados
