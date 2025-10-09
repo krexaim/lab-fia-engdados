@@ -54,3 +54,4 @@ https://github.com/Labdata-FIA/Lab-Engenharia-Dados-v2
 ## Inserindo os dados transformados no postgres
 
 ## Conectando o postgres com o metabase para visualizar os dados
+![Dash](Imagens/Dash%20Metabase.png)
