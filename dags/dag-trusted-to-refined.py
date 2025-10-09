@@ -127,7 +127,7 @@ default_args = {
 }
 
 with DAG(
-    dag_id="trusted_to_refined_pyspark_delta",
+    dag_id="trusted-to-refined-pyspark-delta",
     default_args=default_args,
     schedule_interval="*/10 * * * *",  # a cada 10 minutos (ajustei o cron)
     catchup=False,
