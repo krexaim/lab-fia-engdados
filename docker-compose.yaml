@@ -223,8 +223,6 @@ services:
         - postgres
     ports:
       - 3000:3000
-    networks:
-      - rede_fiagit
 
    airflow-webserver:
     <<: *airflow-common
